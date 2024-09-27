@@ -2,6 +2,7 @@ package tools;
 
 import java.awt.*;
 import java.util.Arrays;
+import java.util.Calendar;
 
 /**
  * <p><b>
@@ -54,6 +55,25 @@ public final class Tools {
      */
     public static boolean in(Object[] array, Object obj) {
         return Arrays.asList(array).contains(obj);
+    }
+
+    public static String getCurrentFormatTime(){
+        //获得当前时间
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int min = calendar.get(Calendar.MINUTE);
+        int sec = calendar.get(Calendar.SECOND);
+//        int milSec = calendar.get(Calendar.MILLISECOND);
+        return hour + ":" + min + ":" + sec/* + "-" + milSec*/;
+    }
+
+    public static String getCurrentFormatDate(){
+        Calendar calendar = Calendar.getInstance();
+        int date = calendar.get(Calendar.DATE);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+
+        return year + "-" + month + "-" + date;
     }
 
 
