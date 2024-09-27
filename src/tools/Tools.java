@@ -1,8 +1,10 @@
 package tools;
 
+import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
 import java.awt.*;
-import java.util.Arrays;
-import java.util.Calendar;
+import java.util.*;
+import java.util.List;
 
 /**
  * <p><b>
@@ -74,6 +76,44 @@ public final class Tools {
         int year = calendar.get(Calendar.YEAR);
 
         return year + "-" + month + "-" + date;
+    }
+
+    /**
+     * <p>
+     *     这个方法用于设置全局的字体. 应当在UI界面初始化的时候调用该方法.
+     *     看起来是个静态的方法就直接丢到<code>Tools</code>类里好了
+     * </p>
+     * 网上抄来的
+     * @param font 字体设置
+     */
+    public static void InitGlobalFont(Font font) {
+        FontUIResource fontRes = new FontUIResource(font);
+        for (Enumeration<Object> keys = UIManager.getDefaults().keys(); keys.hasMoreElements();) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if (value instanceof FontUIResource) {
+                UIManager.put(key, fontRes);
+            }
+        }
+    }
+
+    /**
+     * 获得一个容器内的所有下层组件
+     * @param container 容器
+     * @return sub ArrayList包含了该组件的所有子组件.
+     */
+    public static List<Component> getAllComponents(Container container){
+        List<Component> sub = new ArrayList<>();
+        Component[] allComponents = container.getComponents();
+
+        for(Component component: allComponents){
+            sub.add(component);
+            if(component instanceof Container){
+                sub.addAll(getAllComponents((Container)component));
+            }
+        }
+
+        return sub;
     }
 
 

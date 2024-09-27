@@ -1,9 +1,15 @@
 package ui;
 
+import tools.Out;
+import tools.SettingFile;
 import tools.Tools;
+import ui.base.MFrame;
+import ui.base.TitlePanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -14,19 +20,37 @@ import java.awt.*;
  * @author Max
  * @version 1.0.0
  */
-public class AccountBookFrame extends JFrame {
+public class AccountBookFrame extends MFrame {
+
+    int ScreenWidth = Integer.parseInt(SettingFile.get("ScreenWidth"));
+    int ScreenHeight = Integer.parseInt(SettingFile.get("ScreenHeight"));
+
+
 
     public AccountBookFrame(){
-
-        this.setVisible(true);
-        //设置退出按钮
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        super(new ImageIcon("./resource/titleIcon.png"));
+        this.setTitle(SettingFile.get("Title"));
         //设置非全屏时的窗体大小
-        this.setBounds(0, 0, 500, 1100);
+        int frameWidth = ScreenWidth /4 * 3;
+        int frameHeight = ScreenHeight / 4 * 3;
+        this.setSize(frameWidth,frameHeight);
+        int frameX = (ScreenWidth - this.getWidth()) / 2;
+        int frameY = (ScreenHeight - this.getHeight()) / 2;
+        this.setLocation(frameX, frameY);
 
         //最大化
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setVisible(true);
+        this.redrawAll();
+        this.updateIsFullScreen();
+
     }
+
+    @Override
+    public void redrawAll(){
+        titlePanel.redraw();
+    }
+
 
 
 }
